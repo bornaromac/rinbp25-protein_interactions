@@ -1,76 +1,64 @@
-# Protein-Protein Interaction Modeling using DGraph Community Edition
+# GCN-based Prediction of HIV-1 and Human Protein-Protein Interactions
 
-## Overview
-This project aims to model **protein-protein interactions (PPI)** using **DGraph Community Edition**. The goal is to enable researchers to efficiently **query complex biochemical pathways** and identify key proteins involved in biological processes.
+This repository contains code and data preprocessing steps for training a Graph Convolutional Network (GCN) to predict potential interactions between HIV-1 and human proteins. The model integrates topological node features (centrality scores) into the graph structure to improve link prediction accuracy.
 
-## Features
-### 1. **Data Ingestion**
-- Import PPI datasets from publicly available sources (e.g., **STRING, BioGRID, IntAct**).
-- Preprocess and structure data for DGraph compatibility.
+## Objectives
 
-### 2. **Graph Schema Design**
-- **Nodes:** Proteins, Genes, Biological Pathways.
-- **Edges:** Interaction types (binding, inhibition, activation), Confidence scores, Functional annotations.
+- To model the HIV-1 – human protein-protein interaction network using a graph-based approach.
+- To evaluate how graph centrality features contribute to prediction performance.
+- To apply and compare balanced and unbalanced sampling strategies for negative interaction edges.
+- To assess model performance via hyperparameter optimization.
 
-### 3. **Query & Analysis Capabilities**
-- Find **direct and indirect** interactions between proteins.
-- Identify proteins **central to pathways** (e.g., via PageRank, Betweenness Centrality).
-- Predict potential interactions using **graph-based machine learning**.
+## Project Structure
 
-### 4. **Visualization & API**
-- Interactive web-based visualization of PPI networks.
-- API endpoints for **querying interactions programmatically**.
+- `PPI.ipynb` — main Jupyter Notebook with full data pipeline and model training
+- `data/` — folder to store raw and filtered PPI data (not included, user must download from BioGRID)
+- `requirements.txt` — list of Python dependencies
+- `README.md` — this file
 
-## Technology Stack
-- **Database:** DGraph Community Edition
-- **Programming Language:** Python (GraphQL, DGraph API)
-- **Data Processing:** Pandas, NetworkX
-- **Visualization:** Cytoscape.js, D3.js
+## Dependencies
 
-## Dataset Sources
-- [STRING Database](https://string-db.org/)
-- [BioGRID](https://thebiogrid.org/)
-- [IntAct](https://www.ebi.ac.uk/intact/)
+Install dependencies via:
 
-## Installation & Setup
-1. **Clone the Repository**
-   ```bash
-   git clone https://github.com/yourusername/ppi-dgraph.git
-   cd ppi-dgraph
-   ```
+```bash
+pip install -r requirements.txt
+```
 
-2. **Set Up DGraph**
-   Follow the official [DGraph installation guide](https://dgraph.io/docs/get-started/).
-   ```bash
-   docker-compose up -d
-   ```
+Required packages include:
+- `torch`, `torch_geometric`
+- `networkx`, `pandas`, `numpy`, `scipy`
+- `scikit-learn`, `matplotlib`
 
-3. **Install Dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
+Tested in Google Colab (CUDA GPU available).
 
-4. **Load Data into DGraph**
-   ```bash
-   python data_ingestion.py
-   ```
+## How to Run
 
-5. **Run API Server**
-   ```bash
-   python app.py
-   ```
+1. Download the BioGRID dataset (version 4.4.243) manually from [BioGRID](https://thebiogrid.org/) and place it in the `data/` directory.
+2. Open `PPI.ipynb` in Jupyter or Google Colab.
+3. Follow the cells sequentially to:
+   - Preprocess the dataset
+   - Build the graph
+   - Compute node features (centrality measures)
+   - Assign node labels (HIV-1 or human)
+   - Train and evaluate the GCN model
+4. Optional: Run hyperparameter tuning block at the end for optimal configuration.
 
-## Usage
-- Use the API endpoints to query protein interactions.
-- Explore the network visualization tool.
+## Results
 
-## Expected Outcomes
-- A fully functional **graph database** for querying protein interactions.
-- An API to facilitate automated data retrieval and analysis.
-- A visualization tool for exploring biochemical pathways.
+- Final model achieved:
+  - **Test AUC:** 0.8788
+  - **Average precision:** 0.8567
+- Including centrality-based node features improved performance compared to the structural-only model.
+- Balanced negative sampling improved generalization.
+- Grid search tuning across 18 configurations led to ~10% improvement in AUC over the baseline.
 
-## Next Steps
-- Define the **exact dataset structure** for ingestion.
-- Implement **DGraph schema and queries**.
-- Develop API and visualization dashboard.
+## Notes
 
+- All code is self-contained and documented with inline comments.
+- This notebook was written with reproducibility and transparency in mind.
+- Node features are based on topological properties such as degree, betweenness, and eigenvector centrality.
+- Negative edge sampling is stratified to include both HIV-1 and non-HIV-1 nodes.
+
+## Contact
+
+For questions or feedback, please contact: [bromac@pmfst.hr]
