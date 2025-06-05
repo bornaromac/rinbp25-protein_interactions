@@ -1,6 +1,6 @@
-# GCN-based Prediction of HIV-1 and Human Protein-Protein Interactions
+# GCN-based prediction of HIV-1 and human protein-protein interactions
 
-This repository contains code and data preprocessing steps for training a Graph Convolutional Network (GCN) to predict potential interactions between HIV-1 and human proteins. The model integrates topological node features (centrality scores) into the graph structure to improve link prediction accuracy.
+This repository contains code and data preprocessing steps for training a graph convolutional network (GCN) to predict potential interactions between HIV-1 and human proteins. The model integrates topological node features (centrality scores) into the graph structure to improve link prediction accuracy.
 
 ## Objectives
 
@@ -9,7 +9,7 @@ This repository contains code and data preprocessing steps for training a Graph 
 - To apply and compare balanced and unbalanced sampling strategies for negative interaction edges.
 - To assess model performance via hyperparameter optimization.
 
-## Project Structure
+## Project structure
 
 - `PPI.ipynb` — main Jupyter Notebook with full data pipeline and model training
 - `data/` — folder to store raw and filtered PPI data (not included, user must download from BioGRID)
@@ -31,7 +31,7 @@ Required packages include:
 
 Tested in Google Colab (CUDA GPU available).
 
-## How to Run
+## How to run
 
 1. Download the BioGRID dataset (version 4.4.243) manually from [BioGRID](https://thebiogrid.org/) and place it in the `data/` directory.
 2. Open `PPI.ipynb` in Jupyter or Google Colab.
