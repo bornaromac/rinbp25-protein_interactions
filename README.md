@@ -76,7 +76,7 @@ Dgraph was chosen because it natively supports graph data structures, reverse ed
 
 ## Notes
 
-* All code is self-contained and documented with inline comments.
+* All code is self-contained and documented.
 * This notebook was written with reproducibility and transparency in mind.
 * Node features are based on topological properties such as degree, betweenness, and eigenvector centrality.
 * Negative edge sampling is stratified to include both HIV-1 and non-HIV-1 nodes.
